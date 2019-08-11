@@ -15,13 +15,13 @@ clean:
 ##   build     Build all the modules in the project
 .PHONY: build
 build:
-	@echo jfrog rt go build --build-name=demo-go-service --build-number=${BUILD_NUMBER}
+	@echo "build " | ${GOCMD}
 
 ##   publish   Publish all the modules in the project to Artifactory
 .PHONY: publish
 publish:
 	ls -lh
-	@echo rt go-publish go-local ${DEMO_VERSION} --build-name demo-go-service --build-number=${BUILD_NUMBER}
+	@echo jfrog rt go-publish go-local ${DEMO_VERSION} --build-name demo-go-service --build-number ${BUILD_NUMBER}
 
 ##   help      Show this help
 .PHONY: help
