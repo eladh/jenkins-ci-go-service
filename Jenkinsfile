@@ -2,17 +2,13 @@
 import groovy.json.JsonSlurper
 
 node {
-    def WATCHNAME = env.JOB_NAME
-    def jobName = env.JOB_NAME
 
     def server_url = "http://jfrog.local/artifactory"
 
 
-    def repo = "helm-virtual"
-
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
-        git url: 'https://github.com/jfrogtraining/kubernetes_example.git', branch: 'master'
+        git url: 'https://github.com/eladh/jenkins-ci-go-service.git', branch: 'master'
     }
 
     stage('Prep') {
