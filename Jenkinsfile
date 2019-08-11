@@ -32,7 +32,7 @@ node {
 
     stage('Publish') {
               environment {
-                  DEMO_VERSION = getVersion()
+                  DEMO_VERSION = 1
               }
               steps {
                       script {
@@ -41,13 +41,4 @@ node {
                      }
               }
      }
-}
-
-String getVersion() {
-    "${getTimestamp()}-${env.BUILD_NUMBER}".toString()
-}
-
-
-String getTimestamp() {
-    new SimpleDateFormat('yyyyMMddHHmmss').format(new Date())
 }
