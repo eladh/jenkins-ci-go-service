@@ -20,7 +20,7 @@ build:
 ##   publish   Publish all the modules in the project to Artifactory
 .PHONY: publish
 publish:
-	@echo rt go-publish go-local ${DEMO_VERSION} --build-name demo-service --build-number ${BUILD_NUMBER}
+	@echo rt go-publish go-local ${DEMO_VERSION} --build-name demo-go-service --build-number ${BUILD_NUMBER}
 
 ##   help      Show this help
 .PHONY: help
