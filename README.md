@@ -1,1 +1,1 @@
-# jenkins-ci-go-service
+# swampup-go-service
