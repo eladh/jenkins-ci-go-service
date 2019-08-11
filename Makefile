@@ -20,7 +20,8 @@ build:
 ##   publish   Publish all the modules in the project to Artifactory
 .PHONY: publish
 publish:
-	@jfrog rt go-publish go-local ${DEMO_VERSION} --build-name demo-service --build-number ${BUILD_NUMBER}
+    @echo ${BUILD_NUMBER}
+##	@jfrog rt go-publish go-local ${DEMO_VERSION} --build-name demo-service --build-number ${BUILD_NUMBER}
 
 ##   help      Show this help
 .PHONY: help
