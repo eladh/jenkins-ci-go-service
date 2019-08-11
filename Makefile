@@ -21,7 +21,7 @@ build:
 .PHONY: publish
 publish:
 	ls -lh
-	@echo jfrog rt go-publish go-local ${DEMO_VERSION} --build-name demo-go-service --build-number ${BUILD_NUMBER}
+	@echo jfrog rt go-publish go-local ${DEMO_VERSION} --server-id=beta --build-name=go-service-new --build-number=${BUILD_NUMBER}
 
 ##   help      Show this help
 .PHONY: help
