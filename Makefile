@@ -20,8 +20,8 @@ build:
 ##   publish   Publish all the modules in the project to Artifactory
 .PHONY: publish
 publish:
-	ls -lh
 	jfrog rt go-publish go-local ${DEMO_VERSION} --server-id=beta1 --build-name=go-service-new --build-number=${BUILD_NUMBER}
+	jfrog rt build-publish go-service-new ${BUILD_NUMBER}
 
 ##   help      Show this help
 .PHONY: help
@@ -30,7 +30,7 @@ help: Makefile
 	Usage: make <goal>... [<variable>...] \n\
 	\n\
 	Makefile of Demo Project \n\
-	\n\
+	\n\m
 	 Goals:\n"
 	@sed -n 's/^##//p' $<
 	@printf "\n"
