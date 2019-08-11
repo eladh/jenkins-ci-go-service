@@ -15,7 +15,7 @@ clean:
 ##   build     Build all the modules in the project
 .PHONY: build
 build:
-	@echo "build " | ${GOCMD}
+	@echo "build " | jfrog rt go build go --build-name=go-service-new --build-number=${BUILD_NUMBER}
 
 ##   publish   Publish all the modules in the project to Artifactory
 .PHONY: publish
