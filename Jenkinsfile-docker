@@ -1,0 +1,50 @@
+#!/usr/bin/env groovy
+import groovy.json.JsonSlurper
+
+node {
+
+    def jobName = env.JOB_NAME
+
+    def SERVER_URL = "http://jfrog.local/artifactory"
+    def REPO = "docker-virtual"
+    def rtServer = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+    def buildInfo = Artifactory.newBuildInfo()
+    def artdocker_registry = "jfrog.local:5000"
+    def tagDockerApp
+    def rtDocker = Artifactory.docker server: rtServer
+    buildInfo.env.capture = true
+
+    stage ('Cleanup') {
+        cleanWs()
+    }
+
+    stage ('Clone') {
+        git url: 'https://github.com/eladh/jenkins-ci-go-service.git', branch: 'master'
+    }
+
+
+    //Build docker image named docker-app
+    stage ('Build & Deploy') {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                tagDockerApp = "${artdocker_registry}/docker-go-service:${env.BUILD_NUMBER}"
+                docker.withRegistry ("https://${artdocker_registry}", CREDENTIALS) {
+                      sh "docker login -u ${USERNAME} -p ${PASSWORD} https://${artdocker_registry}"
+                      sh "ls"
+                      docker.build(tagDockerApp)
+                }
+                buildInfo = rtDocker.push(tagDockerApp, REPO, buildInfo)
+                rtServer.publishBuildInfo buildInfo
+             }
+
+
+            sh 'sed "s~\"$BUILD_NUMBER\"~\"${env.BUILD_NUMBER}\"~" jf_pipelines_outputs_template.json> jf_pipelines_outputs.json'
+
+     }
+
+
+     stage ('Archive') {
+       //tell Jenkins to archive the json file
+       archiveArtifacts artifacts: 'jf_pipelines_outputs.json', fingerprint: true
+
+     }
+}

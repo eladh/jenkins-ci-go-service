@@ -1,0 +1,6 @@
+{
+  "svc_build_info": {
+    "buildName": "go-service-build",
+    "buildNumber": "$BUILD_NUMBER"
+  }
+}
